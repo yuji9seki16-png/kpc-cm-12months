@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kyoto Prosumer College — 12 months</title>
+<meta name="description" content="A year of Japanese fermentation from Kyoto. 12 monthly lessons by Kamoshika Fermentation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f1e7;--ink:#2b2622;--sub:#6f655b;--line:#ddd2c0;--accent:#b5482a;--card:#fffaf2;--navy:#1c2436}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header{padding:28px 0 8px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-family:"Shippori Mincho",serif;font-weight:700;letter-spacing:.04em;font-size:15px;color:var(--sub)}
+.langs{display:flex;gap:4px;flex-wrap:wrap}
+.langs button{border:1px solid var(--line);background:transparent;color:var(--sub);padding:6px 11px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer}
+.langs button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hero{padding:40px 0 28px}
+.hero h1{font-family:"Shippori Mincho",serif;font-weight:700;font-size:clamp(30px,6vw,52px);line-height:1.2;margin:0 0 14px;letter-spacing:.01em}
+.hero p{max-width:620px;color:var(--sub);font-size:16px;line-height:1.8;margin:0}
+.hero .play{margin-top:22px;display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;border:0;border-radius:999px;padding:13px 22px;font:inherit;font-weight:500;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;padding:12px 0 48px}
+.tile{position:relative;border:0;padding:0;background:var(--card);border-radius:14px;overflow:hidden;cursor:pointer;text-align:left;font:inherit;color:inherit;box-shadow:0 1px 0 var(--line)}
+.tile .ph{aspect-ratio:9/13;background:#d9cfbf center/cover no-repeat;position:relative}
+.tile .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(20,16,12,.55))}
+.tile .m{position:absolute;left:10px;top:8px;z-index:1;font-family:"Shippori Mincho",serif;font-size:26px;font-weight:700;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.tile .t{padding:10px 12px 13px;font-size:14px;line-height:1.45;min-height:3.6em}
+.tile .soon{position:absolute;right:8px;top:10px;z-index:1;font-size:11px;background:rgba(255,255,255,.85);border-radius:999px;padding:3px 8px;color:var(--sub)}
+.tile:disabled{cursor:default;opacity:.7}
+.tile:not(:disabled):hover .ph{filter:brightness(1.05)}
+.how{border-top:1px solid var(--line);padding:36px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+.how h3{font-family:"Shippori Mincho",serif;font-size:19px;margin:0 0 6px}
+.how p{margin:0;color:var(--sub);line-height:1.75;font-size:15px}
+.cta{text-align:center;padding:28px 0 64px}
+.cta p{color:var(--sub);margin:0 0 14px}
+.cta a{display:inline-block;background:var(--ink);color:var(--bg);text-decoration:none;border-radius:999px;padding:13px 24px;font-weight:500}
+footer{text-align:center;color:var(--sub);font-size:12px;padding:0 0 32px}
+/* player */
+.player{position:fixed;inset:0;background:rgba(12,10,8,.94);display:none;align-items:center;justify-content:center;z-index:10}
+.player.open{display:flex}
+.stage{position:relative;height:min(92vh,calc(100vw*16/9));aspect-ratio:9/16;max-width:100vw}
+.stage video{width:100%;height:100%;display:block;background:#000;border-radius:12px}
+.stage video::cue{font-family:"Noto Sans JP",sans-serif;font-size:clamp(15px,2.3vh,22px);line-height:1.4;background:rgba(18,22,34,.78);color:#fff}
+.ptitle{position:absolute;left:0;right:0;top:-34px;color:#efe6d6;font-family:"Shippori Mincho",serif;font-size:16px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.nav.prev{left:12px}.nav.next{right:12px}
+.close{position:fixed;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.plangs{position:fixed;bottom:12px;left:0;right:0;display:flex;justify-content:center;gap:4px}
+.plangs button{border:1px solid rgba(255,255,255,.3);background:transparent;color:#ddd;padding:5px 10px;border-radius:999px;font:inherit;font-size:12px;cursor:pointer}
+.plangs button[aria-pressed=true]{background:#fff;color:#111}
+@media (max-width:600px){.ptitle{top:auto;bottom:-30px}.nav{top:auto;bottom:56px;transform:none}.stage{height:min(80vh,calc(100vw*16/9))}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">Kyoto Prosumer College · Kamoshika Fermentation</div>
+    <div class="langs" id="langs"></div>
+  </header>
+  <section class="hero">
+    <h1 id="h1"></h1>
+    <p id="lead"></p>
+    <button class="play" id="playall">▶ <span id="playlabel"></span></button>
+  </section>
+  <section class="grid" id="grid"></section>
+  <section class="how" id="how"></section>
+  <section class="cta"><p id="ctap"></p><a id="ctaa" href="https://www.instagram.com/kamoshika_global/" target="_blank" rel="noopener"></a></section>
+  <footer>© Kamoshika Fermentation · Arashiyama, Kyoto</footer>
+</div>
+
+<div class="player" id="player" role="dialog" aria-modal="true">
+  <button class="close" id="close" aria-label="close">×</button>
+  <button class="nav prev" id="prev" aria-label="previous">‹</button>
+  <div class="stage"><div class="ptitle" id="ptitle"></div><video id="vid" playsinline controls preload="auto" crossorigin="anonymous"></video></div>
+  <button class="nav next" id="next" aria-label="next">›</button>
+  <div class="plangs" id="plangs"></div>
+</div>
+
+<script>
+const LANGS=[["es","Español"],["en","English"],["zh-TW","繁體中文"],["zh-Hans","简体中文"],["ja","日本語"]];
+const UI={
+ es:{h1:"Un año de fermentación japonesa, mes a mes",lead:"Doce lecciones desde Kioto que siguen las estaciones de Japón. Cada mes, un fermento para hacer en tu propia cocina. Toca un mes para ver un adelanto.",play:"Ver los 12 meses",soon:"Pronto",
+  how:[["12 lecciones, una al mes","Miso, nukadoko, umeboshi, koji, kimchi… cada fermento llega en su estación."],["Desde nuestra cocina en Kioto","Kamoshika Fermentation enseña fermentación en Arashiyama, Kioto, desde 2014."],["Subtítulos en tu idioma","Español, inglés y chino. Aprendes con las manos, a tu ritmo."]],
+  ctap:"¿Te gustaría aprender con nosotros? Cuéntanos.",ctaa:"Escríbenos en Instagram",
+  m:["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]},
+ en:{h1:"A year of Japanese fermentation, one month at a time",lead:"Twelve lessons from Kyoto that follow Japan's seasons. Each month, one ferment to make in your own kitchen. Tap a month to watch a preview.",play:"Watch all 12 months",soon:"Soon",
+  how:[["12 lessons, one each month","Miso, nukadoko, umeboshi, koji, kimchi… each ferment arrives in its season."],["From our kitchen in Kyoto","Kamoshika Fermentation has taught fermentation in Arashiyama, Kyoto, since 2014."],["Subtitles in your language","English, Spanish and Chinese. Learn with your hands, at your own pace."]],
+  ctap:"Would you like to learn with us? Let us know.",ctaa:"Message us on Instagram",
+  m:["January","February","March","April","May","June","July","August","September","October","November","December"]},
+ "zh-TW":{h1:"跟著日本四季，一年十二個月的發酵課",lead:"從京都出發的十二堂課，順著日本的季節。每個月一種發酵食，在自己的廚房動手做。點選月份即可觀看預告。",play:"觀看十二個月",soon:"即將推出",
+  how:[["十二堂課，每月一堂","味噌、米糠床、日式梅干、麴、韓式泡菜……每一種發酵食都在它的季節登場。"],["來自京都的廚房","發酵食堂Kamoshika自2014年起在京都嵐山教授發酵。"],["你的語言字幕","英文、西班牙文、中文。用雙手學，按自己的步調。"]],
+  ctap:"想和我們一起學嗎？歡迎告訴我們。",ctaa:"透過 Instagram 聯絡我們",
+  m:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]},
+ "zh-Hans":{h1:"跟着日本四季，一年十二个月的发酵课",lead:"从京都出发的十二堂课，顺着日本的季节。每个月一种发酵食，在自己的厨房动手做。点选月份即可观看预告。",play:"观看十二个月",soon:"即将推出",
+  how:[["十二堂课，每月一堂","味噌、米糠床、日式梅干、米曲、韩式泡菜……每一种发酵食都在它的季节登场。"],["来自京都的厨房","发酵食堂Kamoshika自2014年起在京都岚山教授发酵。"],["你的语言字幕","英文、西班牙文、中文。用双手学，按自己的步调。"]],
+  ctap:"想和我们一起学吗？欢迎告诉我们。",ctaa:"通过 Instagram 联系我们",
+  m:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]},
+ ja:{h1:"日本の季節とめぐる、発酵の12か月",lead:"京都から届ける12回の授業。季節ごとにひとつ、自分の台所で発酵食をつくります。月を選ぶと予告編が見られます。",play:"12か月を通して見る",soon:"準備中",
+  how:[["毎月ひとつ、12回","味噌、ぬか床、梅干し、麹、キムチ。それぞれの旬に届きます。"],["京都・嵐山の台所から","発酵食堂カモシカが2014年から嵐山で伝えてきた発酵です。"],["あなたの言葉の字幕で","英語・スペイン語・中国語。手を動かしながら、自分のペースで。"]],
+  ctap:"いっしょに学んでみませんか。",ctaa:"Instagramで連絡する",
+  m:["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]}
+};
+const TITLES={
+ es:["Hacer miso","Miso, sake kasu y levadura natural","Empezar tu nukadoko","Cuidar tu nukadoko","Ume verde","Umeboshi","Umezu (vinagre de ume)","Chile y koji","Kimchi casero","Yangnyeom","Nukadoko de invierno","Abrir tu miso"],
+ en:["Making miso","Miso, sake kasu & natural yeast","Starting a nukadoko","Caring for your nukadoko","Green ume","Umeboshi","Umezu (plum vinegar)","Chili & koji","Homemade kimchi","Yangnyeom","Winter nukadoko","Opening your miso"],
+ "zh-TW":["手作味噌","味噌・酒粕・天然酵母","開始養米糠床","米糠床的照顧","青梅","日式梅干","梅醋的活用","辣椒與麴","手作韓式泡菜","醃醬（양념）","冬季米糠床","開封手作味噌"],
+ "zh-Hans":["手作味噌","味噌・酒粕・天然酵母","开始养米糠床","米糠床的照顾","青梅","日式梅干","梅醋的活用","辣椒与米曲","手作韩式泡菜","腌酱（양념）","冬季米糠床","开封手作味噌"],
+ ja:["手前味噌仕込み","味噌・酒粕・天然酵母","ぬか床のはじめ","ぬか床のメンテ","青梅","梅干し","梅酢の活用","唐辛子＆麹","手前キムチ","ヤンニョム（薬念）活用","冬のぬか床と冬野菜","手前みそ開き"]
+};
+// ready: 動画が揃った月だけ true（揃わない月は「準備中」）
+const READY=[1,2,3,4,5,6,7,8,9,10,11,12];
+const pad=n=>String(n).padStart(2,"0");
+let lang=(new URLSearchParams(location.search).get("lang"))||(()=>{try{return localStorage.getItem("kpc_lang")}catch(e){return null}})()||"es";
+if(!UI[lang])lang="es";
+let cur=0, playAll=false;
+const $=id=>document.getElementById(id);
+function langButtons(el,cls){el.innerHTML="";for(const [k,v] of LANGS){const b=document.createElement("button");b.textContent=v;b.setAttribute("aria-pressed",k===lang);b.onclick=()=>setLang(k);el.appendChild(b)}}
+function render(){
+ const u=UI[lang];document.documentElement.lang=lang;
+ $("h1").textContent=u.h1;$("lead").textContent=u.lead;$("playlabel").textContent=u.play;
+ $("ctap").textContent=u.ctap;$("ctaa").textContent=u.ctaa;
+ $("how").innerHTML=u.how.map(([h,p])=>`<div><h3>${h}</h3><p>${p}</p></div>`).join("");
+ const g=$("grid");g.innerHTML="";
+ for(let i=1;i<=12;i++){
+  const ok=READY.includes(i);const b=document.createElement("button");b.className="tile";b.disabled=!ok;
+  b.innerHTML=`<div class="ph" style="background-image:url(thumbs/${pad(i)}.jpg)"><span class="m">${i}</span>${ok?"":`<span class="soon">${u.soon}</span>`}</div><div class="t"><b>${u.m[i-1]}</b><br>${TITLES[lang][i-1]}</div>`;
+  if(ok)b.onclick=()=>{playAll=false;open(i)};g.appendChild(b);
+ }
+ langButtons($("langs"));langButtons($("plangs"));
+}
+function setLang(k){lang=k;try{localStorage.setItem("kpc_lang",k)}catch(e){}render();if($("player").classList.contains("open"))setTrack()}
+function setTrack(){
+ const v=$("vid");[...v.querySelectorAll("track")].forEach(t=>t.remove());
+ if(lang==="ja")return; // 日本語は字幕なし（既存CMは日本語テロップ入り）
+ const t=document.createElement("track");t.kind="subtitles";t.srclang=lang;t.label=lang;t.src=`subs/${pad(cur)}.${lang}.vtt`;t.default=true;v.appendChild(t);
+ t.addEventListener("load",()=>{t.track.mode="showing";place(t.track)});t.track.mode="showing";
+}
+function place(tt){ // 字幕は下のぼかし帯へ（中央の映像帯にある日本語テロップと重ならないように）
+ for(const c of [...(tt.cues||[])]){c.snapToLines=false;c.line=70;c.size=90;c.align="center"}
+}
+function open(i){
+ cur=i;const v=$("vid");$("player").classList.add("open");
+ $("ptitle").textContent=`${UI[lang].m[i-1]} · ${TITLES[lang][i-1]}`;
+ v.src=`videos/${pad(i)}.mp4`;setTrack();v.play().catch(()=>{});
+}
+function step(d){let i=cur;for(let k=0;k<12;k++){i=(i-1+d+12)%12+1;if(READY.includes(i))return open(i)}}
+$("vid").addEventListener("ended",()=>{if(playAll)step(1)});
+$("prev").onclick=()=>step(-1);$("next").onclick=()=>step(1);
+$("close").onclick=()=>{$("vid").pause();$("player").classList.remove("open")};
+$("playall").onclick=()=>{playAll=true;open(READY[0])};
+document.addEventListener("keydown",e=>{if(!$("player").classList.contains("open"))return;if(e.key==="ArrowRight")step(1);if(e.key==="ArrowLeft")step(-1);if(e.key==="Escape")$("close").click()});
+render();
+</script>
+</body>
+</html>
